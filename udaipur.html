@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog Carousel - Varanasi</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700|Roboto:400,700" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionic/1.3.2/css/ionic.css">
+
+  <!-- Owl Carousel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://www.holidify.com/images/bgImages/UDAIPUR.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(5px);
+      z-index: -1;
+    }
+
+    .blog_section {
+      padding-top: 5rem;
+      padding-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .blog_item {
+      display: flex;
+      flex-direction: column;
+      height: 580px;
+      box-shadow: 0 0 11px 0 rgba(6, 22, 58, 0.14);
+      border-radius: 2px;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .blog_image img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .blog_item:hover .blog_image img {
+      transform: scale(1.1);
+    }
+
+    .blog_image span i {
+      position: absolute;
+      z-index: 2;
+      color: #fff;
+      font-size: 18px;
+      width: 38px;
+      height: 45px;
+      padding-top: 7px;
+      text-align: center;
+      right: 20px;
+      top: 0;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 79%, 0 100%);
+      background-color: #ff5e14;
+    }
+
+    .blog_details {
+      flex: 1;
+      padding: 25px 20px 30px 20px;
+      text-align: center;
+    }
+
+    .blog_title h5 a {
+      font-size: 28px;
+      font-weight: 400;
+      font-family: 'Dancing Script', cursive;
+      color: #020d26;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .blog_title h5 a:hover {
+      color: #ff5e14;
+    }
+
+    .blog_details ul {
+      padding: 0;
+      margin: 10px 0;
+      list-style: none;
+      color: #ff5e14;
+    }
+
+    .blog_details ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    .blog_details p {
+      border-top: 1px solid #e5e5e5;
+      margin-top: 10px;
+      padding-top: 20px;
+    }
+
+    .blog_details a {
+      font-size: 16px;
+      display: inline-block;
+      color: #ff5e14;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .owl-nav {
+      display: block;
+    }
+
+    .owl-nav .owl-prev,
+    .owl-nav .owl-next {
+      position: absolute;
+      top: 33%;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #ff5e14;
+      color: #fff;
+      text-align: center;
+      line-height: 30px;
+      border: 5px solid #fff;
+    }
+
+    .owl-nav .owl-prev { left: -27px; }
+    .owl-nav .owl-next { right: -27px; }
+
+    .extra_tile_wrapper {
+      max-width: 1140px;
+      margin: 0 auto 5rem auto;
+      padding: 0 15px;
+    }
+
+    .extra_tile {
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 11px 0 rgba(6, 22, 58, 0.14);
+      border-radius: 2px;
+      padding: 30px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <section class="blog_section">
+    <div class="container">
+      <div class="blog_content">
+        <div class="owl-carousel owl-theme">
+          <!-- Blog Items Start -->
+          <div class="blog_item">
+            <div class="blog_image">
+              <img src="https://static.thehosteller.com/blogimage/Every%20bite%20tells%20you%20a%20story!%20.Checked%20in%20at%20@deena_chat_bhandar%20located%20at%20Varanasi%20to%20try%20out%20their%20famous%20Tamatar%20chat%20and%20it%20was%20just%20yum!%20The%20jamun%20was%20served%20hot%20and%20just%20a%20perfect%20dessert%20after%20some%20amaz%20(1)-1721307410290.jpg" alt="Deena Chat Bhandar">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Savor the Flavors of Deena Chat Bhandar</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi</li>
+                <li><i class="icon ion-md-time"></i>Anytime</li>
+              </ul>
+              <p>Indulge in the tantalizing tastes of Deena Chat Bhandar.</p>
+              <a href="#">Explore More</a>
+            </div>
+          </div>
+          <!-- Repeat 2 more tiles or as needed -->
+          <div class="blog_item">
+            <div class="blog_image">
+              <img src="https://static.thehosteller.com/blogimage/kashi%20viswanath%20temple%20(alightindia.com)-1721218646522.jpg" alt="Kashi Vishwanath">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Visit Kashi Vishwanath Temple</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi</li>
+                <li><i class="icon ion-md-time"></i>Anytime</li>
+              </ul>
+              <p>Spiritual energy in one of India's oldest temples.</p>
+              <a href="#">Explore More</a>
+            </div>
+          </div>
+
+          <div class="blog_item">
+            <div class="blog_image">
+              <img src="https://static.thehosteller.com/blogimage/Dashashwamedh%20Ghat%20Ganga%20Aarti-1721218836155.jpg" alt="Ghat Aarti">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Ganga Aarti at Dashashwamedh Ghat</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi</li>
+                <li><i class="icon ion-md-time"></i>Evening</li>
+              </ul>
+              <p>A magical evening of lights and devotion.</p>
+              <a href="#">Explore More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Extra Tile Below -->
+  <div class="extra_tile_wrapper">
+    <div class="extra_tile">
+      <h5 style="font-family: 'Dancing Script', cursive; font-size: 28px;">Lorem Ipsum Dolor</h5>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script>
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      dots: false,
+      nav: true,
+      autoplay: true,
+      smartSpeed: 3000,
+      autoplayTimeout: 7000,
+      responsive: {
+        0: { items: 1 },
+        600: { items: 2 },
+        1000: { items: 3 }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Slider</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Loader Screen */
+    #loader-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff; /* Solid white background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    #loader-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Gallery Content Blur */
+    #gallery-content {
+      filter: blur(10px);
+      transition: filter 1s ease;
+    }
+
+    #gallery-content.loaded {
+      filter: blur(0);
+    }
+
+    /* WiFi Loader Styles */
+    #wifi-loader {
+      --background: #62abff;
+      --front-color: #4f29f0;
+      --back-color: #c3c8de;
+      --text-color: #414856;
+      width: 64px;
+      height: 64px;
+      border-radius: 50px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #wifi-loader svg {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #wifi-loader svg circle {
+      position: absolute;
+      fill: none;
+      stroke-width: 6px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transform: rotate(-100deg);
+      transform-origin: center;
+    }
+
+    #wifi-loader svg circle.back {
+      stroke: var(--back-color);
+    }
+
+    #wifi-loader svg circle.front {
+      stroke: var(--front-color);
+    }
+
+    #wifi-loader svg.circle-outer {
+      height: 86px;
+      width: 86px;
+    }
+
+    #wifi-loader svg.circle-outer circle {
+      stroke-dasharray: 62.75 188.25;
+    }
+
+    #wifi-loader svg.circle-outer circle.back {
+      animation: circle-outer135 1.4s ease infinite 0.3s;
+    }
+
+    #wifi-loader svg.circle-outer circle.front {
+      animation: circle-outer135 1.4s ease infinite 0.15s;
+    }
+
+    #wifi-loader svg.circle-middle {
+      height: 60px;
+      width: 60px;
+    }
+
+    #wifi-loader svg.circle-middle circle {
+      stroke-dasharray: 42.5 127.5;
+    }
+
+    #wifi-loader svg.circle-middle circle.back {
+      animation: circle-middle6123 1.4s ease infinite 0.25s;
+    }
+
+    #wifi-loader svg.circle-middle circle.front {
+      animation: circle-middle6123 1.4s ease infinite 0.1s;
+    }
+
+    #wifi-loader svg.circle-inner {
+      height: 34px;
+      width: 34px;
+    }
+
+    #wifi-loader svg.circle-inner circle {
+      stroke-dasharray: 22 66;
+    }
+
+    #wifi-loader svg.circle-inner circle.back {
+      animation: circle-inner162 1.4s ease infinite 0.2s;
+    }
+
+    #wifi-loader svg.circle-inner circle.front {
+      animation: circle-inner162 1.4s ease infinite 0.05s;
+    }
+
+    #wifi-loader .text {
+      position: absolute;
+      bottom: -40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: lowercase;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+    }
+
+    #wifi-loader .text::before, #wifi-loader .text::after {
+      content: attr(data-text);
+    }
+
+    #wifi-loader .text::before {
+      color: var(--text-color);
+    }
+
+    #wifi-loader .text::after {
+      color: var(--front-color);
+      animation: text-animation76 3.6s ease infinite;
+      position: absolute;
+      left: 0;
+    }
+
+    @keyframes circle-outer135 {
+      0% { stroke-dashoffset: 25; }
+      25% { stroke-dashoffset: 0; }
+      65% { stroke-dashoffset: 301; }
+      80% { stroke-dashoffset: 276; }
+      100% { stroke-dashoffset: 276; }
+    }
+
+    @keyframes circle-middle6123 {
+      0% { stroke-dashoffset: 17; }
+      25% { stroke-dashoffset: 0; }
+      65% { stroke-dashoffset: 204; }
+      80% { stroke-dashoffset: 187; }
+      100% { stroke-dashoffset: 187; }
+    }
+
+    @keyframes circle-inner162 {
+      0% { stroke-dashoffset: 9; }
+      25% { stroke-dashoffset: 0; }
+      65% { stroke-dashoffset: 106; }
+      80% { stroke-dashoffset: 97; }
+      100% { stroke-dashoffset: 97; }
+    }
+
+    @keyframes text-animation76 {
+      0% { clip-path: inset(0 100% 0 0); }
+      50% { clip-path: inset(0); }
+      100% { clip-path: inset(0 0 0 100%); }
+    }
+
+    /* Animation for zoom out and fade */
+    .zoom-out {
+      animation: zoomOut 1s ease-in-out forwards;
+    }
+
+    @keyframes zoomOut {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader Screen -->
+  <div id="loader-screen">
+    <div id="wifi-loader">
+      <svg class="circle-outer" viewBox="0 0 86 86">
+        <circle class="back" cx="43" cy="43" r="40"></circle>
+        <circle class="front" cx="43" cy="43" r="40"></circle>
+        <circle class="new" cx="43" cy="43" r="40"></circle>
+      </svg>
+      <svg class="circle-middle" viewBox="0 0 60 60">
+        <circle class="back" cx="30" cy="30" r="27"></circle>
+        <circle class="front" cx="30" cy="30" r="27"></circle>
+      </svg>
+      <svg class="circle-inner" viewBox="0 0 34 34">
+        <circle class="back" cx="17" cy="17" r="14"></circle>
+        <circle class="front" cx="17" cy="17" r="14"></circle>
+      </svg>
+      <div class="text" data-text="Loading"></div>
+    </div>
+  </div>
+
+  <!-- Gallery Content -->
+  <div id="gallery-content">
+    <div id="slider" class="slider" style="--img-prev: url('https://lh3.googleusercontent.com/aC9nyW5dhaYFmWD8fcf8DApjpH08eHEkbCHqmUPHRQ5T3jK-QyNKZYVMehmrvyPdEA_KxWvgZ3_kyOOYOAv99Ow3UoKSvEloleVKGSfLOwOyDV3Q6Dwi1G-NYoa9-t_ofmmskE6BYnVIOnIz2HWlMcijzIEwvKAL_R4z63DaLgG0z_OcGiSQHunwGAPXrBQUv42ZXuIMODq4zxDHczSxJ72b0-_udtdQK3JuT2X8nXCwFoF7GxmOpzXS0H5f50DuCbXoXcx-O7bgBMCXZdMpTxB27-wdXeLmxpYUySXgjSN2NAKmK16DmGLYvw5tMlrqwb8h4MJEEbXjP1pjPxXsahb7UZseEGyn80uLjATANJvusyJWCtzkkxYXPz-yI1rDvfEJKe2eyA-5AvFlzFBSwBMASn8f7mXinUrXMMREkJQjoi89NfZ91G7253OEVQOqcWxddiYtcHCO5v6Pl3QfV2SUTWXgggscDSY2ezjSPpYERNTXnIM_aCyWmIG7ybrfqOB0eVYBAgynyuPVbjd4KuZWZq2Dfu33HX1RuPKglbOuZGD1QbpJnruvUVkAmjDXI40ENN7X=w1600-h766');">
+      <div id="slider-content" class="slider__content">
+        <div class="slider__images">
+          <div class="slider__images-item slider__images-item--active" data-id="1">
+            <img src="https://www.mygoodtrip.in/wp-content/uploads/2021/02/Places-to-visit-in-Pushkar-1170x540.jpg" alt="">
+            <button class="button" data-id="1">Explore Pushkar</button>
+          </div>
+          <div class="slider__images-item" data-id="2">
+            <img src="https://triptovaranasi.in/wp-content/uploads/2023/04/42jcrbfrs5kxgsh6jccmum52bpwg_Enjoy-a-pleasant-trip-to-Varanasi.webp" alt="">
+            <button class="button" data-id="2">Explore Varanasi</button>
+          </div>
+          <div class="slider__images-item" data-id="3">
+            <img src="https://rishikeshdaytour.com/blog/wp-content/uploads/2019/03/Rishikesh-Uttarakhand-India.jpg" alt="">
+            <button class="button" data-id="3">Explore Rishikesh</button>
+          </div>
+          <div class="slider__images-item" data-id="4">
+            <img src="https://plus.unsplash.com/premium_photo-1697730324062-c012bc98eb13?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+            <button class="button" data-id="4">Explore Amritsar</button>
+          </div>
+          <div class="slider__images-item" data-id="5">
+            <img src="https://pondicherrytourism.co.in/images/places-to-visit/header/chunnambar-boat-house-parking-puducherry-tourism-entry-fee-timings-holidays-reviews-header.jpg" alt="">
+            <button class="button" data-id="5">Explore Pondicherry</button>
+          </div>
+        </div>
+        <div class="slider__text">
+          <div class="slider__text-item slider__text-item--active" data-id="1">
+            <div class="slider__text-item-head">
+              <h3>Pushkar</h3>
+            </div>
+            <div class="slider__text-item-info">
+              <p>“Beneath starry desert skies, Pushkar’s ghats sing of eternal love.”</p>
+            </div>
+          </div>
+          <div class="slider__text-item" data-id="2">
+            <div class="slider__text-item-head">
+              <h3>Varanasi</h3>
+            </div>
+            <div class="slider__text-item-info">
+              <p>“In Varanasi’s golden dawn, the Ganges cradles your wandering soul.”</p>
+            </div>
+          </div>
+          <div class="slider__text-item" data-id="3">
+            <div class="slider__text-item-head">
+              <h3>Rishikesh</h3>
+            </div>
+            <div class="slider__text-item-info">
+              <p>“Rishikesh hums with river hymns, stitching peace into your heart.”</p>
+            </div>
+          </div>
+          <div class="slider__text-item" data-id="4">
+            <div class="slider__text-item-head">
+              <h3>Amritsar</h3>
+            </div>
+            <div class="slider__text-item-info">
+              <p>“Amritsar’s Golden Temple glows, where every heart finds a home.”</p>
+            </div>
+          </div>
+          <div class="slider__text-item" data-id="5">
+            <div class="slider__text-item-head">
+              <h3>Pondicherry</h3>
+            </div>
+            <div class="slider__text-item-info">
+              <p>“Pondicherry’s waves whisper French dreams, kissing your spirit awake.”</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider__nav">
+        <div class="slider__nav-arrows">
+          <div id="left" class="slider__nav-arrow slider__nav-arrow--left">to left</div>
+          <div id="right" class="slider__nav-arrow slider__nav-arrow--right">to right</div>
+        </div>
+        <div id="slider-dots" class="slider__nav-dots">
+          <div class="slider__nav-dot slider__nav-dot--active" data-id="1"></div>
+          <div class="slider__nav-dot" data-id="2"></div>
+          <div class="slider__nav-dot" data-id="3"></div>
+          <div class="slider__nav-dot" data-id="4"></div>
+          <div class="slider__nav-dot" data-id="5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+  <script>
+    // Loader and Blur Fade-Out
+    document.addEventListener('DOMContentLoaded', () => {
+      const loaderScreen = document.getElementById('loader-screen');
+      const galleryContent = document.getElementById('gallery-content');
+
+      setTimeout(() => {
+        // Start fading out loader and removing blur
+        loaderScreen.classList.add('hidden');
+        galleryContent.classList.add('loaded');
+
+        // Hide loader completely after fade-out
+        setTimeout(() => {
+          loaderScreen.style.display = 'none';
+        }, 1000); // Matches loader-screen transition duration
+      }, 1500); // 4-second delay
+    });
+
+    // Handle button clicks for all gallery items
+    document.querySelectorAll('.button').forEach(button => {
+      button.addEventListener('click', (event) => {
+        const id = event.target.getAttribute('data-id');
+        const image = document.querySelector(`.slider__images-item[data-id="${id}"] img`);
+        image.classList.add('zoom-out');
+
+        setTimeout(() => {
+          // Redirect to the corresponding page based on the button clicked
+          switch (id) {
+            case '1':
+              window.location.href = 'explorePushkar.html';
+              break;
+            case '2':
+              window.location.href = 'exploreVaranasi.html';
+              break;
+            case '3':
+              window.location.href = 'exploreRishikesh.html';
+              break;
+            case '4':
+              window.location.href = 'exploreAmritsar.html';
+              break;
+            case '5':
+              window.location.href = 'explorePondicherry.html';
+              break;
+            default:
+              break;
+          }
+        }, 1000); // Matches the zoom-out animation duration
+      });
+    });
+  </script>
+</body>
+</html>

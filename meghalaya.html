@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Carousel - Varanasi</title>
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionic/1.3.2/css/ionic.css">
+  <!-- Owl Carousel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+  <style>
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://www.holidify.com/images/cmsuploads/compressed/7344205654_b9bc34f275_o_20181203105712.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(5px); /* Adjust the blur intensity as needed */
+      z-index: -1;
+    }
+    .blog_section {
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.blog_section .blog_content .blog_item {
+  display: flex;
+  flex-direction: column;
+  height: 580px;
+  box-shadow: 0 0 11px 0 rgba(6, 22, 58, 0.14);
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.blog_section .blog_content .blog_item .blog_image {
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.blog_section .blog_content .blog_item .blog_image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+.blog_section .blog_content .blog_item:hover .blog_image img {
+  transform: scale(1.1);
+}
+
+.blog_section .blog_content .blog_item .blog_image span i {
+  position: absolute;
+  z-index: 2;
+  color: #fff;
+  font-size: 18px;
+  width: 38px;
+  height: 45px;
+  padding-top: 7px;
+  text-align: center;
+  right: 20px;
+  top: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 79%, 0 100%);
+  background-color: #ff5e14;
+}
+
+.blog_section .blog_content .blog_item .blog_details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 20px 30px 20px;
+  text-align: center;
+}
+
+.blog_section .blog_content .blog_item .blog_details .blog_title h5 a {
+  color: #020d26;
+  font-size: 28px;
+  font-weight: 400;
+  font-family: 'Dancing Script', cursive;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.blog_section .blog_content .blog_item .blog_details .blog_title h5 a:hover {
+  color: #ff5e14;
+}
+
+.blog_section .blog_content .blog_item .blog_details ul {
+  padding: 0 3px 10px 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #ff5e14;
+}
+
+.blog_section .blog_content .blog_item .blog_details ul li {
+  display: inline-block;
+  padding-right: 15px;
+  position: relative;
+}
+
+.extra_tile_wrapper {
+      max-width: 1140px;
+      margin: 0 auto 5rem auto;
+      padding: 0 15px;
+    }
+
+    .extra_tile {
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 11px 0 rgba(6, 22, 58, 0.14);
+      border-radius: 2px;
+      padding: 30px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 400;
+      color: #000;
+    }
+
+.blog_section .blog_content .blog_item .blog_details ul li i {
+  padding-right: 7px;
+}
+
+.blog_section .blog_content .blog_item .blog_details p {
+  border-top: 1px solid #e5e5e5;
+  margin-top: 10px;
+  padding-top: 20px;
+  font-family: 'Roboto', sans-serif;
+  flex-grow: 1;
+}
+
+.blog_section .blog_content .blog_item .blog_details a {
+  font-size: 16px;
+  display: inline-block;
+  color: #ff5e14;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-family: 'Roboto', sans-serif;
+}
+
+.blog_section .blog_content .blog_item .blog_details a:hover {
+  color: #020d26;
+}
+
+.blog_section .blog_content .blog_item .blog_details a i {
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.blog_section .blog_content .owl-nav {
+  display: block;
+}
+
+.blog_section .blog_content .owl-nav .owl-prev,
+.blog_section .blog_content .owl-nav .owl-next {
+  position: absolute;
+  top: 33%;
+  border: 5px solid #fff;
+  text-align: center;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  outline: 0;
+  background: #ff5e14;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.blog_section .blog_content .owl-nav .owl-prev {
+  left: -27px;
+}
+
+.blog_section .blog_content .owl-nav .owl-next {
+  right: -27px;
+}
+
+.blog_section .blog_content .owl-nav .owl-prev span,
+.blog_section .blog_content .owl-nav .owl-next span {
+  font-size: 25px;
+  margin-top: -6px;
+  display: inline-block;
+}
+
+.blog_section .blog_content .owl-nav .owl-prev:hover,
+.blog_section .blog_content .owl-nav .owl-next:hover {
+  background: #fff;
+  border-color: #ff5e14;
+  color: #ff5e14;
+}
+
+@media only screen and (max-width: 577px) {
+  .blog_section .owl-nav .owl-prev {
+    left: -17px !important;
+  }
+
+  .blog_section .owl-nav .owl-next {
+    right: -17px !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <section class="blog_section">
+    <div class="container">
+      <div class="blog_content">
+        <div class="owl-carousel owl-theme">
+          <div class="blog_item">
+            <div class="blog_image">
+              <img class="img-fluid" src="https://static.thehosteller.com/blogimage/Every%20bite%20tells%20you%20a%20story!%20.Checked%20in%20at%20@deena_chat_bhandar%20located%20at%20Varanasi%20to%20try%20out%20their%20famous%20Tamatar%20chat%20and%20it%20was%20just%20yum!%20The%20jamun%20was%20served%20hot%20and%20just%20a%20perfect%20dessert%20after%20some%20amaz%20(1)-1721307410290.jpg" alt="Deena Chat Bhandar">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Savor the Flavors of Deena Chat Bhandar</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi, Uttar Pradesh</li>
+                <li><i class="icon ion-md-time"></i>Best Time: Throughout the Year</li>
+              </ul>
+              <p>Indulge in the tantalizing tastes of Deena Chat Bhandar, famous for its Tamatar chat and hot jamun. Every bite tells a story of Varanasi's rich culinary heritage.</p>
+              <a href="#">Explore More<i class="icofont-long-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="blog_item">
+            <div class="blog_image">
+              <img class="img-fluid" src="https://static.thehosteller.com/blogimage/kashi%20viswanath%20temple%20(alightindia.com)-1721218646522.jpg" alt="Kashi Vishwanath Temple">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Experience Divinity at Kashi Vishwanath Temple</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi, Uttar Pradesh</li>
+                <li><i class="icon ion-md-time"></i>Best Time: Throughout the Year</li>
+              </ul>
+              <p>Step into the sacred Kashi Vishwanath Temple, one of the most revered Hindu temples. Feel the divine presence and immerse yourself in spirituality.</p>
+              <a href="#">Explore More<i class="icofont-long-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="blog_item">
+            <div class="blog_image">
+              <img class="img-fluid" src="https://static.thehosteller.com/blogimage/Dashashwamedh%20Ghat%20Ganga%20Aarti-1721218836155.jpg" alt="Dashashwamedh Ghat">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Witness the Majestic Ganga Aarti at Dashashwamedh Ghat</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi, Uttar Pradesh</li>
+                <li><i class="icon ion-md-time"></i>Best Time: Evening</li>
+              </ul>
+              <p>Experience the mesmerizing Ganga Aarti at Dashashwamedh Ghat. The ritual is a spectacle of lights, chants, and devotion that will leave you spellbound.</p>
+              <a href="#">Explore More<i class="icofont-long-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="blog_item">
+            <div class="blog_image">
+              <img class="img-fluid" src="https://static.thehosteller.com/blogimage/Ramnagar%20fort-1721218193971.jpg" alt="Ramnagar Fort">
+              <span><i class="icon ion-md-create"></i></span>
+            </div>
+            <div class="blog_details">
+              <div class="blog_title">
+                <h5><a href="#">Explore the Historic Ramnagar Fort</a></h5>
+              </div>
+              <ul>
+                <li><i class="icon ion-md-pin"></i>Varanasi, Uttar Pradesh</li>
+                <li><i class="icon ion-md-time"></i>Best Time: Throughout the Year</li>
+              </ul>
+              <p>Discover the rich history of Ramnagar Fort, a magnificent structure that offers a glimpse into the royal past of Varanasi.</p>
+              <a href="#">Explore More<i class="icofont-long-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="extra_tile_wrapper">
+    <div class="extra_tile">
+      <h5 style="font-family: 'Dancing Script', cursive; font-size: 28px;">Hi There</h5>
+      <p>ANY OTHER INFO CAN BE WRITTEN HERE. When use would click on 'explore more', it would redirect to the main website (who has this landing page stuffs) tour plans.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <!-- Popper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js"></script>
+  <script>
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      dots: false,
+      nav: true,
+      autoplay: true,
+      smartSpeed: 3000,
+      autoplayTimeout: 7000,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  </script>
+</body>
+</html>

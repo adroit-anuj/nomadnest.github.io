@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NomadNest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Exo:300,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet" />
+
+    
+  <!-- jQuery + jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 200vh;
+      margin: 0;
+      font-family: 'Source Sans Pro', sans-serif;
+      overflow-x: hidden;
+      font-size: 16px;
+      position: relative;
+    }
+
+    /* Moving Strip */
+    .top-strip {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background: #171616;
+      color: #fff;
+      z-index: 3;
+      opacity: 0.8;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    .strip-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: moveLeft 18s linear infinite;
+      font-size: 1.2rem;
+      letter-spacing: 12px;
+    }
+
+    @keyframes moveLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .top-strip.scrolled {
+      background: rgb(59, 73, 76);
+      color: #000000;
+    }
+
+    /* Initial background and title */
+    .header-section {
+      position: fixed;
+      top: 40px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 40px);
+      /* background: #1a1a1a; */
+      z-index: 1;
+      transition: background 1s ease;
+    }
+
+    .header-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.wallpaperflare.com/static/16/796/842/mountains-sky-night-purple-wallpaper-preview.jpg') no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(0px);
+      opacity: 0.9;
+      z-index: -1;
+      transition: filter 0.8s ease;
+    }
+
+    .header-section.scrolled::before,
+    .header-section.fully-scrolled::before {
+      filter: blur(25px);
+    }
+
+    .header-section.scrolled,
+    .header-section.fully-scrolled {
+      background: transparent;
+    }
+
+    .title {
+      font-family: 'Cinzel', serif;
+      font-size: 10rem;
+      color: #e76aa8;
+      text-align: center;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      transition: font-size 1s ease, opacity 1s ease, top 1s ease;
+    }
+
+    .subtitle {
+      font-family: 'Cinzel', sans-serif;
+      font-size: 1.4rem;
+      color: #ffffff;
+      text-align: center;
+      position: fixed;
+      top: 37%;
+      left: 50%;
+      transform: translateX(-50%) scale(1.2);
+      opacity: 0;
+      z-index: 2;
+      transition: opacity 1s ease, transform 0.2s ease, top 0.4s ease;
+      white-space: nowrap;
+    }
+
+    .subtitle span {
+      margin-right: 30px;
+      /* margin-left: ; */
+      position: relative;
+    }
+
+    .subtitle span:not(:last-child)::after {
+      content: '|';
+      position: absolute;
+      right: -20px;
+      color: #ffccff;
+      font-size: 1.6rem;
+    }
+
+    .subtitle span:last-child {
+      margin-right: 0;
+    }
+
+    .centerize {
+      font-family: fantasy;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #ffffff;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      text-align: center;
+      opacity: 1;
+      z-index: 2;
+      transition: transform 1s ease, opacity 1s ease;
+      background: rgba(198, 86, 86, 0.14);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 0;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    .centerize p {
+      max-width: 60%;
+      margin: 0 auto;
+    }
+
+    .centerize.scrolled {
+      transform: translateX(-100vw);
+      opacity: 0;
+    }
+
+    .scroll-down-text {
+      font-family: fantasy, sans-serif;
+      font-size: 1.4rem;
+      color: #7bebff;
+      position: fixed;
+      top: 79%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      text-align: center;
+      opacity: 1;
+      z-index: 2;
+      transition: transform 1s ease, opacity 1s ease;
+      animation: float1 2s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(20px);
+      }
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    .scroll-down-text.scrolled {
+      transform: translateX(-80vw);
+      opacity: 0;
+    }
+
+    /* Animation for subtitle appearance */
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-50%) scale(0); }
+      to { opacity: 1; transform: translateX(-50%) scale(1.2); }
+    }
+
+    /* Fade to white and minimize on scroll */
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: smooth;
+      }
+    }
+
+    .title.scrolled {
+      font-size: 0;
+      opacity: 0;
+      top: -100px;
+    }
+
+    .subtitle.scrolled {
+      opacity: 0;
+      top: 100vh;
+    }
+
+
+   
+
+    /* Transition Section */
+    .transition-section {
+      position: fixed;
+      top: 100vh;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #fff;
+      z-index: 1;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .transition-section.visible {
+      opacity: 1;
+    }
+
+    .transition-image {
+      width: 100px;
+      height: 100px;
+      background: url('https://via.placeholder.com/100?text=Travel+Icon') no-repeat center;
+      background-size: contain;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .transition-section.scrolled {
+      opacity: 0;
+    }
+
+    .happy-customers.scrolled {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .transition-image.scrolled {
+      opacity: 0;
+    }
+
+    #loader-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #3498db;
+      animation: bgShift 6s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      background-color: #333;
+      margin: 100px auto;
+      -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+      animation: sk-rotateplane 1.2s infinite ease-in-out;
+    }
+
+    @-webkit-keyframes sk-rotateplane {
+      0% { -webkit-transform: perspective(120px) }
+      50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+      100% { -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg) }
+    }
+
+    @keyframes sk-rotateplane {
+      0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+      } 50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+      } 100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+      }
+    }
+
+    @keyframes bgShift {
+      0%   { background: #3498db; }
+      33%  { background: #8d5c0d; }
+      66%  { background: #f1c40f; }
+      100% { background: #3498db; }
+    }
+
+    #main-content {
+      display: none;
+      height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+      z-index: 1;
+      top: 100vh;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      background: transparent;
+    }
+
+    #main-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(5px);
+      opacity: 0.8;
+      z-index: -1;
+    }
+
+    #main-content.visible {
+      display: flex;
+      opacity: 1;
+    }
+
+    .soft-title {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 4.5rem;
+      font-weight: 500;
+      background: linear-gradient(
+        45deg,
+        #91ccf4,
+        #8e44ad,
+        #e74c3c,
+        #92a10a,
+        #aa2f1f,
+        #91ccf4
+      );
+      background-size: 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: colorShift 12s linear infinite, fadeIn 2s ease-in-out;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      width:100%;
+      /* background: rgba(198, 86, 86, 0.14); */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 0;
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.14);
+      padding: 20px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+    }
+
+    .soft-title p {
+      max-width: 60%;
+      margin: 0 auto;
+    }
+
+
+    @keyframes colorShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 600% 50%; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    #amount {
+      font-family: 'Exo', sans-serif;
+      font-size: 3rem;
+      color: #2d3436;
+      font-weight: 800;
+      border: none;
+      background: transparent;
+      margin-bottom: 20px;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    #budget-message {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.5rem;
+      color: #2d3436;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      padding: 10px 0 20px 0;
+      font-style: italic;
+    }
+
+    #slide-it {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 2.5rem;
+      color: #2d3436;
+      opacity: 0.5;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-top: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .cube {
+      position: relative;
+      width: 500px;
+      height: 60px;
+      margin: 2rem auto;
+      transform-style: preserve-3d;
+      perspective: 400px;
+    }
+
+    .a, .b, .c, .d {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      left: 0;
+    }
+
+    .a:before, .b:before, .c:before, .d:before,
+    .a:after, .b:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 500px;
+      height: 60px;
+    }
+
+    .a:before, .b:before, .c:before, .d:before {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .a:after {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0));
+    }
+
+    .b:after {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.25));
+    }
+
+    .b {
+      transform: rotateX(75deg) translateY(-60px);
+      transform-origin: 0% 0%;
+    }
+
+    .c {
+      transform: rotateX(75deg);
+      transform-origin: 100% 100%;
+      box-shadow: 0px 30px 20px -20px rgba(0, 0, 0, 0.4),
+                  0px 40px 15px -15px rgba(0, 0, 0, 0.25);
+    }
+
+    .d {
+      transform: translateZ(-60px) translateY(-15px);
+    }
+
+    .a, .b {
+      background: linear-gradient(to bottom, rgba(46, 204, 113, 0.8), rgba(46, 204, 113, 0.8));
+    }
+
+    .c, .d {
+      background: linear-gradient(to bottom, rgba(46, 204, 113, 0.5), rgba(46, 204, 113, 0.5));
+    }
+
+    #slider-range-min {
+      position: relative;
+      width: 94%;
+      left: 3%;
+      top: 10px;
+      z-index: 999;
+    }
+
+    .ui-slider {
+      height: 5px;
+      background: rgba(0,0,0,0.1);
+      border: none;
+    }
+
+    .ui-slider .ui-slider-handle {
+      top: -8px;
+      width: 26px;
+      height: 20px;
+      margin-left: -15px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.7);
+      font-family: 'Anonymous Pro', monospace;
+      font-size: 1.2rem;
+      color: rgba(0,0,0,0.5);
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .box {
+      width: 140px;
+      height: auto;
+      float: left;
+      transition: .5s linear;
+      position: relative;
+      display: block;
+      overflow: hidden;
+      padding: 15px;
+      text-align: center;
+      margin: 0 5px;
+      background: rgba(133, 133, 135, 0.8);
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 1.2em;
+    }
+
+    .box:before {
+      position: absolute;
+      content: '';
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      width: 100%;
+      border-bottom: 4px solid transparent;
+      border-left: 4px solid transparent;
+      box-sizing: border-box;
+      transform: translateX(100%);
+    }
+
+    .box:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      border-top: 4px solid transparent;
+      border-right: 4px solid transparent;
+      box-sizing: border-box;
+      transform: translateX(-100%);
+    }
+
+    .box:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .box:hover:before {
+      border-color: #262626;
+      height: 100%;
+      transform: translateX(0);
+      transition: .3s transform linear, .3s height linear .3s;
+    }
+
+    .box:hover:after {
+      border-color: #262626;
+      height: 100%;
+      transform: translateX(0);
+      transition: .3s transform linear, .3s height linear .5s;
+    }
+
+    button {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      background: transparent;
+    }
+
+    #go-button {
+      position: absolute;
+      right: 20px;
+      bottom: -50px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 2;
+      font-family: 'Quicksand', sans-serif;
+      left: 170px;
+    }
+
+    
+
+
+  </style>
+</head>
+<body style="background: url('https://www.wallpaperflare.com/static/16/796/842/mountains-sky-night-purple-wallpaper-preview.jpg') no-repeat center center fixed; background-size: cover;">
+  <!-- Moving Strip -->
+  <div class="top-strip">
+    <div class="strip-text">📍 Smart travelers start here. Where are you headed?  💸 Budget doesn't mean boring. Let's prove it!   ✨ Travel vibes, wallet-approved!  </div>
+  </div>
+
+  <!-- Bubble container -->
+  <div class="bubble-container">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="title">NomadNest</div>
+    <div class="subtitle">
+      <span>Your travel</span>
+      <span>Your terms</span>
+      <span>Your budget</span>
+    </div>
+    <div class="centerize">
+      Travel isn’t just about reaching a place—it’s about transformation. It’s the stories found on winding roads, the strangers who turn into friends,<br> and the freedom to move at your own pace. From Goa’s golden sunrises to Delhi’s bustling markets to the quiet of <br>Himalayan villages, every journey in India can change how you see the world.
+      <p>&nbsp</p><p> <b>At NomadNest</b>, we believe no two journeys should look the same. That’s why we don’t offer one-size-fits-all itineraries. Instead, we craft travel experiences as unique as you are—shaped by your interests, your time, and your budget. Whether you're seeking soul, spice, or solitude—India has a story waiting for you. Let’s make it yours.</p>    </div>
+    <div class="scroll-down-text">
+      <u>Scroll down</u> and find places that suits you! The world is waiting. 🌎✈️✨
+    </div>
+  </div>
+
+  <!-- Transition Section -->
+
+
+  <!-- Loader and Main Content -->
+  <div id="loader-screen">
+    <div class="spinner"></div>
+  </div>
+
+  <section id="main-content">
+    <h1 class="soft-title"><b>What's your budget?</b></h1>
+
+    <!-- Travel emoji strip -->
+    <div style="font-size: 1.5rem; margin-bottom: 40px; animation: floaty 2s ease-in-out infinite;">
+       ✈️ 🏞️ 🏕️ 🏙️ 🚆 🌄
+    </div>
+
+    <input type="text" id="amount" readonly />
+
+    <div id="budget-message"></div>
+
+    <!-- Background circles behind cube -->
+    <div style="position: relative; margin-bottom: 20px;">
+      <!-- Circle 1 -->
+      <div class="circle" style="
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(46,204,113,0.3), transparent);
+        left: 50%;
+        transform: translateX(-50%);
+        top: -150px;
+        z-index: 0;
+        filter: blur(10px);
+        opacity: 0.7;
+      "></div>
+      <!-- Circle 2 -->
+      <div class="circle" style="
+        position: absolute;
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(52,152,219,0.3), transparent);
+        left: 40%;
+        transform: translateX(-40%);
+        top: -100px;
+        z-index: 0;
+        filter: blur(10px);
+        opacity: 0.7;
+      "></div>
+      <!-- Circle 3 -->
+      <div class="circle" style="
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(142,68,173,0.3), transparent);
+        left: 60%;
+        transform: translateX(-60%);
+        top: -50px;
+        z-index: 0;
+        filter: blur(10px);
+        opacity: 0.7;
+      "></div>
+
+      <div class="cube" style="position: relative; z-index: 1;">
+        <div class="a"></div>
+        <div class="b"></div>
+        <div class="c"></div>
+        <div class="d"></div>
+        <div id="slider-range-min"></div>
+      </div>
+
+      <div id="slide-it">Slide it!</div>
+      <button id="go-button" class="box">Go</button>
+    </div>
+  </section>
+
+  <script>
+    $(document).ready(function() {
+      // Scroll to top on page load
+      window.scrollTo(0, 0);
+
+      // Function to hide loader and show content
+      function hideLoader() {
+        try {
+          const loader = document.getElementById("loader-screen");
+          const mainContent = document.getElementById("main-content");
+          const transitionSection = document.querySelector(".transition-section");
+
+          if (loader) {
+            loader.style.display = "none";
+            console.log("Loader hidden");
+          }
+          if (mainContent) {
+            mainContent.style.display = "flex";
+            mainContent.style.opacity = "1";
+            console.log("Main content displayed");
+          }
+          if (transitionSection) {
+            transitionSection.style.display = "flex";
+            console.log("Transition section displayed");
+          }
+        } catch (error) {
+          console.error("Error in hideLoader:", error);
+        }
+      }
+
+      // Hide loader after 3 seconds or when page is fully loaded
+      setTimeout(hideLoader, 3000);
+      $(window).on("load", function() {
+        console.log("Window loaded, hiding loader");
+        hideLoader();
+      });
+
+      // Scroll handling
+      $(window).scroll(function() {
+        var scrollTop = $(window).scrollTop();
+        var winHeight = $(window).height();
+        var $header = $('.header-section');
+        var $title = $('.title');
+        var $subtitle = $('.subtitle');
+        var $centerize = $('.centerize');
+        var $scrollDownText = $('.scroll-down-text');
+        var $mainContent = $('#main-content');
+        var $topStrip = $('.top-strip');
+        var $transitionSection = $('.transition-section');
+        var $happyCustomers = $('.happy-customers');
+        var $transitionImage = $('.transition-image');
+
+        // Header section (0 to ~16.67vh)
+        if (scrollTop < winHeight * 0.1667) {
+          $header.removeClass('scrolled fully-scrolled');
+          $title.removeClass('scrolled');
+          $subtitle.removeClass('scrolled');
+          $centerize.removeClass('scrolled');
+          $scrollDownText.removeClass('scrolled');
+          $topStrip.removeClass('scrolled');
+          $mainContent.removeClass('visible');
+          $transitionSection.removeClass('visible scrolled');
+          $happyCustomers.removeClass('scrolled').css('opacity', 0).css('transform', 'translateY(0)');
+          $transitionImage.removeClass('scrolled').css('opacity', 0);
+        }
+        // Transition section (~16.67vh to ~33.33vh)
+        else if (scrollTop >= winHeight * 0.1667 && scrollTop < winHeight * 0.3333) {
+          $header.addClass('scrolled').removeClass('fully-scrolled');
+          $title.addClass('scrolled');
+          $subtitle.addClass('scrolled');
+          $centerize.addClass('scrolled');
+          $scrollDownText.addClass('scrolled');
+          $topStrip.addClass('scrolled');
+          $mainContent.removeClass('visible');
+          $transitionSection.addClass('visible');
+          $happyCustomers.css('opacity', 1);
+          $transitionImage.css('opacity', 1);
+        }
+        // Slider section (~33.33vh onwards)
+        else if (scrollTop >= winHeight * 0.3333) {
+          $header.addClass('fully-scrolled').removeClass('scrolled');
+          $mainContent.addClass('visible');
+          $transitionSection.addClass('scrolled');
+          $happyCustomers.addClass('scrolled');
+          $transitionImage.addClass('scrolled');
+        }
+      });
+
+      // Initial subtitle animation
+      setTimeout(() => {
+        $('.subtitle').css('opacity', 1).addClass('slideIn');
+      }, 500);
+
+      // Slider functionality
+      const initialValue = 2550;
+      let currentBudget = initialValue;
+
+      const getMessage = (val) => {
+        if (val < 500) return "Ultra budget mode 🥾";
+        if (val < 1000) return "Let's keep it pocket-friendly 🧳";
+        if (val < 2000) return "Smart traveler vibes 🚋";
+        if (val < 3000) return "Balanced and bold ✈️";
+        if (val < 4000) return "Adventurous and comfy 🚐";
+        if (val < 5000) return "Treat yourself in style 🌅";
+        return "Luxury vibes only 💎";
+      };
+
+      const getBudgetUrl = (val) => {
+        if (val < 500) return "below500.html";
+        if (val < 1000) return "below1000.html";
+        if (val < 2000) return "below2000.html";
+        if (val < 3000) return "below3000.html";
+        if (val < 4000) return "below4000.html";
+        if (val < 5000) return "below5000.html";
+        return "above5000.html";
+      };
+
+      const updateVisuals = (val, isInitial = false) => {
+        currentBudget = val; // Store current budget value
+        const cappedVal = val >= 5000 ? "5000+" : val;
+        $("#amount").val(`$${cappedVal}`);
+
+        if (!isInitial) {
+          $("#amount").css({ opacity: 1, transform: "translateY(0)" });
+          $("#budget-message").css({ opacity: 1, transform: "translateY(0)" });
+          $("#slide-it").css({ opacity: 0, transform: "translateY(20px)" });
+          $("#go-button").css({ opacity: 1, transform: "translateY(0)" });
+        } else {
+          $("#amount").css({ opacity: 0, transform: "translateY(20px)" });
+          $("#budget-message").css({ opacity: 0, transform: "translateY(20px)" });
+          $("#slide-it").css({ opacity: 1, transform: "translateY(0)" });
+          $("#go-button").css({ opacity: 0, transform: "translateY(20px)" });
+        }
+
+        $(".a, .b, .c, .d").css("width", (val / 5000 * 100) + "%");
+
+        const msg = getMessage(val);
+        const $msg = $("#budget-message");
+        if ($msg.text() !== msg && !isInitial) {
+          $msg.text(msg);
+        }
+      };
+
+      try {
+        $("#slider-range-min").slider({
+          range: "min",
+          value: initialValue,
+          min: 100,
+          max: 5000,
+          slide: function (event, ui) {
+            updateVisuals(ui.value);
+          }
+        });
+
+        $(".ui-slider-handle").text("");
+        updateVisuals(initialValue, true);
+
+        // Go button click handler
+        $("#go-button").on("click", function() {
+          try {
+            const url = getBudgetUrl(currentBudget);
+            if (url) {
+              console.log(`Opening URL for budget $${currentBudget}: ${url}`);
+              window.open(url, '_blank');
+            } else {
+              console.error("No URL defined for budget: $" + currentBudget);
+            }
+          } catch (error) {
+            console.error("Error opening URL:", error);
+          }
+        });
+      } catch (error) {
+        console.error("Error initializing slider:", error);
+      }
+    });
+  </script>
+</body>
+</html>
