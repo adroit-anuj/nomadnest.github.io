@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,900&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet" />
 
-    
   <!-- jQuery + jQuery UI -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -28,7 +27,7 @@
       margin: 0;
       font-family: 'Source Sans Pro', sans-serif;
       overflow-x: hidden;
-      font-size: 16px;
+      font-size: 12.8px; /* 16px * 0.8 */
       position: relative;
     }
 
@@ -38,22 +37,22 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 40px;
+      height: 32px; /* 40px * 0.8 */
       background: #171616;
       color: #fff;
       z-index: 3;
       opacity: 0.8;
       overflow: hidden;
       white-space: nowrap;
-      transition: background 0.5s ease, color 0.5s ease;
+      transition: background 0.4s ease, color 0.4s ease; /* 0.5s * 0.8 */
     }
 
     .strip-text {
       display: inline-block;
       padding-left: 100%;
-      animation: moveLeft 18s linear infinite;
-      font-size: 1.2rem;
-      letter-spacing: 12px;
+      animation: moveLeft 14.4s linear infinite; /* 18s * 0.8 */
+      font-size: 1.2rem; /* 1.2rem * 0.8 */
+      letter-spacing: 9.6px; /* 12px * 0.8 */
     }
 
     @keyframes moveLeft {
@@ -62,20 +61,19 @@
     }
 
     .top-strip.scrolled {
-      background: rgb(59, 73, 76);
+      background: rgb(157, 191, 197);
       color: #000000;
     }
 
     /* Initial background and title */
     .header-section {
       position: fixed;
-      top: 40px;
+      top: 32px; /* 40px * 0.8 */
       left: 0;
       width: 100%;
-      height: calc(100vh - 40px);
-      /* background: #1a1a1a; */
+      height: calc(100vh - 32px);
       z-index: 1;
-      transition: background 1s ease;
+      transition: background 0.8s ease; /* 1s * 0.8 */
     }
 
     .header-section::before {
@@ -90,12 +88,12 @@
       filter: blur(0px);
       opacity: 0.9;
       z-index: -1;
-      transition: filter 0.8s ease;
+      transition: filter 0.64s ease; /* 0.8s * 0.8 */
     }
 
     .header-section.scrolled::before,
     .header-section.fully-scrolled::before {
-      filter: blur(25px);
+      filter: blur(20px); /* 25px * 0.8 */
     }
 
     .header-section.scrolled,
@@ -105,44 +103,43 @@
 
     .title {
       font-family: 'Cinzel', serif;
-      font-size: 10rem;
+      font-size: 11rem; /* 10rem * 0.8 */
       color: #e76aa8;
       text-align: center;
       position: fixed;
-      top: 20%;
+      top: 15%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
-      transition: font-size 1s ease, opacity 1s ease, top 1s ease;
+      transition: font-size 0.8s ease, opacity 0.8s ease, top 0.8s ease; /* 1s * 0.8 */
     }
 
     .subtitle {
       font-family: 'Cinzel', sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.4rem; /* 1.4rem * 0.8 */
       color: #ffffff;
       text-align: center;
       position: fixed;
-      top: 37%;
+      top: 38%;
       left: 50%;
       transform: translateX(-50%) scale(1.2);
       opacity: 0;
       z-index: 2;
-      transition: opacity 1s ease, transform 0.2s ease, top 0.4s ease;
+      transition: opacity 0.8s ease, transform 0.16s ease, top 0.32s ease; /* 1s, 0.2s, 0.4s * 0.8 */
       white-space: nowrap;
     }
 
     .subtitle span {
-      margin-right: 30px;
-      /* margin-left: ; */
+      margin-right: 24px; /* 30px * 0.8 */
       position: relative;
     }
 
     .subtitle span:not(:last-child)::after {
       content: '|';
       position: absolute;
-      right: -20px;
+      right: -16px; /* -20px * 0.8 */
       color: #ffccff;
-      font-size: 1.6rem;
+      font-size: 1.28rem; /* 1.6rem * 0.8 */
     }
 
     .subtitle span:last-child {
@@ -151,7 +148,7 @@
 
     .centerize {
       font-family: fantasy;
-      font-size: 1.1rem;
+      font-size: 1.2rem; /* 1.1rem * 0.8 */
       font-weight: 300;
       color: #ffffff;
       position: fixed;
@@ -162,17 +159,17 @@
       text-align: center;
       opacity: 1;
       z-index: 2;
-      transition: transform 1s ease, opacity 1s ease;
+      transition: transform 0.8s ease, opacity 0.8s ease; /* 1s * 0.8 */
       background: rgba(198, 86, 86, 0.14);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(6.4px); /* 8px * 0.8 */
+      -webkit-backdrop-filter: blur(6.4px);
       border-radius: 0;
-      border: 1px solid rgba(0, 0, 0, 0.2);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-      padding: 20px;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      border: 0.8px solid rgba(0, 0, 0, 0.2); /* 1px * 0.8 */
+      box-shadow: 0 6.4px 25.6px 0 rgba(0, 0, 0, 0.5); /* 8px, 32px * 0.8 */
+      padding: 16px; /* 20px * 0.8 */
+      text-shadow: 0 0.8px 2.4px rgba(0, 0, 0, 0.5); /* 1px, 3px * 0.8 */
     }
-    
+
     .centerize p {
       max-width: 60%;
       margin: 0 auto;
@@ -185,7 +182,7 @@
 
     .scroll-down-text {
       font-family: fantasy, sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.4rem; /* 1.4rem * 0.8 */
       color: #7bebff;
       position: fixed;
       top: 79%;
@@ -195,8 +192,8 @@
       text-align: center;
       opacity: 1;
       z-index: 2;
-      transition: transform 1s ease, opacity 1s ease;
-      animation: float1 2s ease-in-out infinite;
+      transition: transform 0.8s ease, opacity 0.8s ease; /* 1s * 0.8 */
+      animation: float1 1.6s ease-in-out infinite; /* 2s * 0.8 */
     }
 
     @keyframes float1 {
@@ -204,7 +201,7 @@
         transform: translateX(-50%) translateY(0);
       }
       50% {
-        transform: translateX(-50%) translateY(20px);
+        transform: translateX(-50%) translateY(16px); /* 20px * 0.8 */
       }
       100% {
         transform: translateX(-50%) translateY(0);
@@ -232,16 +229,13 @@
     .title.scrolled {
       font-size: 0;
       opacity: 0;
-      top: -100px;
+      top: -80px; /* -100px * 0.8 */
     }
 
     .subtitle.scrolled {
       opacity: 0;
       top: 100vh;
     }
-
-
-   
 
     /* Transition Section */
     .transition-section {
@@ -257,7 +251,7 @@
       align-items: center;
       justify-content: center;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.4s ease; /* 0.5s * 0.8 */
     }
 
     .transition-section.visible {
@@ -265,12 +259,12 @@
     }
 
     .transition-image {
-      width: 100px;
-      height: 100px;
+      width: 80px; /* 100px * 0.8 */
+      height: 80px;
       background: url('https://via.placeholder.com/100?text=Travel+Icon') no-repeat center;
       background-size: contain;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.4s ease; /* 0.5s * 0.8 */
     }
 
     .transition-section.scrolled {
@@ -279,7 +273,7 @@
 
     .happy-customers.scrolled {
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(40px); /* 50px * 0.8 */
     }
 
     .transition-image.scrolled {
@@ -293,7 +287,7 @@
       width: 100vw;
       height: 100vh;
       background: #3498db;
-      animation: bgShift 6s infinite;
+      animation: bgShift 4.8s infinite; /* 6s * 0.8 */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -301,30 +295,30 @@
     }
 
     .spinner {
-      width: 40px;
-      height: 40px;
+      width: 32px; /* 40px * 0.8 */
+      height: 32px;
       background-color: #333;
-      margin: 100px auto;
-      -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
-      animation: sk-rotateplane 1.2s infinite ease-in-out;
+      margin: 80px auto; /* 100px * 0.8 */
+      -webkit-animation: sk-rotateplane 0.96s infinite ease-in-out; /* 1.2s * 0.8 */
+      animation: sk-rotateplane 0.96s infinite ease-in-out;
     }
 
     @-webkit-keyframes sk-rotateplane {
-      0% { -webkit-transform: perspective(120px) }
-      50% { -webkit-transform: perspective(120px) rotateY(180deg) }
-      100% { -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg) }
+      0% { -webkit-transform: perspective(96px) } /* 120px * 0.8 */
+      50% { -webkit-transform: perspective(96px) rotateY(180deg) }
+      100% { -webkit-transform: perspective(96px) rotateY(180deg) rotateX(180deg) }
     }
 
     @keyframes sk-rotateplane {
       0% {
-        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+        transform: perspective(96px) rotateX(0deg) rotateY(0deg); /* 120px * 0.8 */
+        -webkit-transform: perspective(96px) rotateX(0deg) rotateY(0deg)
       } 50% {
-        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+        transform: perspective(96px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(96px) rotateX(-180.1deg) rotateY(0deg)
       } 100% {
-        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
-        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        transform: perspective(96px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(96px) rotateX(-180deg) rotateY(-179.9deg);
       }
     }
 
@@ -342,12 +336,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 10px;
+      padding: 8px; /* 10px * 0.8 */
       position: relative;
       z-index: 1;
       top: 100vh;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.4s ease; /* 0.5s * 0.8 */
       background: transparent;
     }
 
@@ -360,7 +354,7 @@
       height: 100%;
       background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
       background-size: cover;
-      filter: blur(5px);
+      filter: blur(4px); /* 5px * 0.8 */
       opacity: 0.8;
       z-index: -1;
     }
@@ -372,7 +366,7 @@
 
     .soft-title {
       font-family: 'Quicksand', sans-serif;
-      font-size: 4.5rem;
+      font-size: 3.6rem; /* 4.5rem * 0.8 */
       font-weight: 500;
       background: linear-gradient(
         45deg,
@@ -386,18 +380,17 @@
       background-size: 600%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: colorShift 12s linear infinite, fadeIn 2s ease-in-out;
-      letter-spacing: 1px;
-      margin-bottom: 30px;
-      width:100%;
-      /* background: rgba(198, 86, 86, 0.14); */
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      animation: colorShift 9.6s linear infinite, fadeIn 1.6s ease-in-out; /* 12s, 2s * 0.8 */
+      letter-spacing: 0.8px; /* 1px * 0.8 */
+      margin-bottom: 24px; /* 30px * 0.8 */
+      width: 100%;
+      backdrop-filter: blur(6.4px); /* 8px * 0.8 */
+      -webkit-backdrop-filter: blur(6.4px);
       border-radius: 0;
-      border: 1px solid rgba(0, 0, 0, 0.14);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.14);
-      padding: 20px;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+      border: 0.8px solid rgba(0, 0, 0, 0.14); /* 1px * 0.8 */
+      box-shadow: 0 6.4px 25.6px 0 rgba(0, 0, 0, 0.14); /* 8px, 32px * 0.8 */
+      padding: 16px; /* 20px * 0.8 */
+      text-shadow: 0 0.8px 2.4px rgba(0, 0, 0, 0.14); /* 1px, 3px * 0.8 */
     }
 
     .soft-title p {
@@ -405,62 +398,61 @@
       margin: 0 auto;
     }
 
-
     @keyframes colorShift {
       0% { background-position: 0% 50%; }
       100% { background-position: 600% 50%; }
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(10px); }
+      0% { opacity: 0; transform: translateY(8px); } /* 10px * 0.8 */
       100% { opacity: 1; transform: translateY(0); }
     }
 
     #amount {
       font-family: 'Exo', sans-serif;
-      font-size: 3rem;
+      font-size: 2.4rem; /* 3rem * 0.8 */
       color: #2d3436;
       font-weight: 800;
       border: none;
       background: transparent;
-      margin-bottom: 20px;
+      margin-bottom: 16px; /* 20px * 0.8 */
       display: block;
       margin: 0 auto;
       text-align: center;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(16px); /* 20px * 0.8 */
+      transition: opacity 0.4s ease, transform 0.4s ease; /* 0.5s * 0.8 */
     }
 
     #budget-message {
       font-family: 'Quicksand', sans-serif;
-      font-size: 1.5rem;
+      font-size: 2rem; /* 1.5rem * 0.8 */
       color: #2d3436;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      padding: 10px 0 20px 0;
+      transform: translateY(16px); /* 20px * 0.8 */
+      transition: opacity 0.4s ease, transform 0.4s ease; /* 0.5s * 0.8 */
+      padding: 8px 0 16px 0; /* 10px, 20px * 0.8 */
       font-style: italic;
     }
 
     #slide-it {
       font-family: 'Quicksand', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2.5rem; /* 2.5rem * 0.8 */
       color: #2d3436;
       opacity: 0.5;
       transform: translateY(0);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      margin-top: 10px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      transition: opacity 0.4s ease, transform 0.4s ease; /* 0.5s * 0.8 */
+      margin-top: 8px; /* 10px * 0.8 */
+      text-shadow: 1.6px 1.6px 3.2px rgba(0, 0, 0, 0.6); /* 2px, 2px, 4px * 0.8 */
     }
 
     .cube {
       position: relative;
-      width: 500px;
-      height: 60px;
-      margin: 2rem auto;
+      width: 400px; /* 500px * 0.8 */
+      height: 48px; /* 60px * 0.8 */
+      margin: 1.6rem auto; /* 2rem * 0.8 */
       transform-style: preserve-3d;
-      perspective: 400px;
+      perspective: 320px; /* 400px * 0.8 */
     }
 
     .a, .b, .c, .d {
@@ -476,8 +468,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 500px;
-      height: 60px;
+      width: 400px; /* 500px * 0.8 */
+      height: 48px; /* 60px * 0.8 */
     }
 
     .a:before, .b:before, .c:before, .d:before {
@@ -493,19 +485,19 @@
     }
 
     .b {
-      transform: rotateX(75deg) translateY(-60px);
+      transform: rotateX(75deg) translateY(-48px); /* -60px * 0.8 */
       transform-origin: 0% 0%;
     }
 
     .c {
       transform: rotateX(75deg);
       transform-origin: 100% 100%;
-      box-shadow: 0px 30px 20px -20px rgba(0, 0, 0, 0.4),
-                  0px 40px 15px -15px rgba(0, 0, 0, 0.25);
+      box-shadow: 0px 24px 16px -16px rgba(0, 0, 0, 0.4), /* 30px, 20px, -20px * 0.8 */
+                  0px 32px 12px -12px rgba(0, 0, 0, 0.25); /* 40px, 15px, -15px * 0.8 */
     }
 
     .d {
-      transform: translateZ(-60px) translateY(-15px);
+      transform: translateZ(-48px) translateY(-12px); /* -60px, -15px * 0.8 */
     }
 
     .a, .b {
@@ -520,45 +512,45 @@
       position: relative;
       width: 94%;
       left: 3%;
-      top: 10px;
+      top: 8px; /* 10px * 0.8 */
       z-index: 999;
     }
 
     .ui-slider {
-      height: 5px;
+      height: 4px; /* 5px * 0.8 */
       background: rgba(0,0,0,0.1);
       border: none;
     }
 
     .ui-slider .ui-slider-handle {
-      top: -8px;
-      width: 26px;
-      height: 20px;
-      margin-left: -15px;
-      border-radius: 2px;
+      top: -6.4px; /* -8px * 0.8 */
+      width: 20.8px; /* 26px * 0.8 */
+      height: 16px; /* 20px * 0.8 */
+      margin-left: -12px; /* -15px * 0.8 */
+      border-radius: 1.6px; /* 2px * 0.8 */
       background: rgba(255,255,255,0.7);
       font-family: 'Anonymous Pro', monospace;
-      font-size: 1.2rem;
+      font-size: 0.96rem; /* 1.2rem * 0.8 */
       color: rgba(0,0,0,0.5);
       text-align: center;
       cursor: pointer;
     }
 
     .box {
-      width: 140px;
+      width: 112px; /* 140px * 0.8 */
       height: auto;
       float: left;
-      transition: .5s linear;
+      transition: .4s linear; /* .5s * 0.8 */
       position: relative;
       display: block;
       overflow: hidden;
-      padding: 15px;
+      padding: 12px; /* 15px * 0.8 */
       text-align: center;
-      margin: 0 5px;
+      margin: 0 4px; /* 5px * 0.8 */
       background: rgba(133, 133, 135, 0.8);
       text-transform: uppercase;
       font-weight: 900;
-      font-size: 1.2em;
+      font-size: 0.96em; /* 1.2em * 0.8 */
     }
 
     .box:before {
@@ -566,10 +558,10 @@
       content: '';
       left: 0;
       bottom: 0;
-      height: 4px;
+      height: 3.2px; /* 4px * 0.8 */
       width: 100%;
-      border-bottom: 4px solid transparent;
-      border-left: 4px solid transparent;
+      border-bottom: 3.2px solid transparent; /* 4px * 0.8 */
+      border-left: 3.2px solid transparent;
       box-sizing: border-box;
       transform: translateX(100%);
     }
@@ -580,29 +572,29 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 4px;
-      border-top: 4px solid transparent;
-      border-right: 4px solid transparent;
+      height: 3.2px; /* 4px * 0.8 */
+      border-top: 3.2px solid transparent; /* 4px * 0.8 */
+      border-right: 3.2px solid transparent;
       box-sizing: border-box;
       transform: translateX(-100%);
     }
 
     .box:hover {
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* 5px, 15px * 0.8 */
     }
 
     .box:hover:before {
       border-color: #262626;
       height: 100%;
       transform: translateX(0);
-      transition: .3s transform linear, .3s height linear .3s;
+      transition: .24s transform linear, .24s height linear .24s; /* .3s, .3s, .3s * 0.8 */
     }
 
     .box:hover:after {
       border-color: #262626;
       height: 100%;
       transform: translateX(0);
-      transition: .3s transform linear, .3s height linear .5s;
+      transition: .24s transform linear, .24s height linear .4s; /* .3s, .3s, .5s * 0.8 */
     }
 
     button {
@@ -616,19 +608,15 @@
 
     #go-button {
       position: absolute;
-      right: 20px;
-      bottom: -50px;
+      right: 20px; /* 20px * 0.8 */
+      bottom: -40px; /* -50px * 0.8 */
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(16px); /* 20px * 0.8 */
+      transition: opacity 0.4s ease, transform 0.4s ease; /* 0.5s * 0.8 */
       z-index: 2;
       font-family: 'Quicksand', sans-serif;
-      left: 170px;
+      left: 136px; /* 170px * 0.8 */
     }
-
-    
-
-
   </style>
 </head>
 <body style="background: url('https://www.wallpaperflare.com/static/16/796/842/mountains-sky-night-purple-wallpaper-preview.jpg') no-repeat center center fixed; background-size: cover;">
@@ -656,15 +644,18 @@
     </div>
     <div class="centerize">
       Travel isn’t just about reaching a place—it’s about transformation. It’s the stories found on winding roads, the strangers who turn into friends,<br> and the freedom to move at your own pace. From Goa’s golden sunrises to Delhi’s bustling markets to the quiet of <br>Himalayan villages, every journey in India can change how you see the world.
-      <p>&nbsp</p><p> <b>At NomadNest</b>, we believe no two journeys should look the same. That’s why we don’t offer one-size-fits-all itineraries. Instead, we craft travel experiences as unique as you are—shaped by your interests, your time, and your budget. Whether you're seeking soul, spice, or solitude—India has a story waiting for you. Let’s make it yours.</p>    </div>
+      <p> </p><p> <b>At NomadNest</b>, we believe no two journeys should look the same. That’s why we don’t offer one-size-fits-all itineraries. Instead, we craft travel experiences as unique as you are—shaped by your interests, your time, and your budget. Whether you're seeking soul, spice, or solitude—India has a story waiting for you. Let’s make it yours.</p>    </div>
     <div class="scroll-down-text">
       <u>Scroll down</u> and find places that suits you! The world is waiting. 🌎✈️✨
     </div>
   </div>
-
+  
   <!-- Transition Section -->
-
-
+  <div class="transition-section">
+    <div class="transition-image"></div>
+    <div class="happy-customers">Loved by travelers worldwide</div>
+  </div>
+  
   <!-- Loader and Main Content -->
   <div id="loader-screen">
     <div class="spinner"></div>
@@ -674,7 +665,7 @@
     <h1 class="soft-title"><b>What's your budget?</b></h1>
 
     <!-- Travel emoji strip -->
-    <div style="font-size: 1.5rem; margin-bottom: 40px; animation: floaty 2s ease-in-out infinite;">
+    <div style="font-size: 1.2rem; margin-bottom: 32px; animation: floaty 1.6s ease-in-out infinite;">
        ✈️ 🏞️ 🏕️ 🏙️ 🚆 🌄
     </div>
 
@@ -683,49 +674,8 @@
     <div id="budget-message"></div>
 
     <!-- Background circles behind cube -->
-    <div style="position: relative; margin-bottom: 20px;">
-      <!-- Circle 1 -->
-      <div class="circle" style="
-        position: absolute;
-        width: 600px;
-        height: 600px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(46,204,113,0.3), transparent);
-        left: 50%;
-        transform: translateX(-50%);
-        top: -150px;
-        z-index: 0;
-        filter: blur(10px);
-        opacity: 0.7;
-      "></div>
-      <!-- Circle 2 -->
-      <div class="circle" style="
-        position: absolute;
-        width: 450px;
-        height: 450px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(52,152,219,0.3), transparent);
-        left: 40%;
-        transform: translateX(-40%);
-        top: -100px;
-        z-index: 0;
-        filter: blur(10px);
-        opacity: 0.7;
-      "></div>
-      <!-- Circle 3 -->
-      <div class="circle" style="
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(142,68,173,0.3), transparent);
-        left: 60%;
-        transform: translateX(-60%);
-        top: -50px;
-        z-index: 0;
-        filter: blur(10px);
-        opacity: 0.7;
-      "></div>
+    <div style="position: relative; margin-bottom: 16px;"> <!-- 20px * 0.8 -->
+      
 
       <div class="cube" style="position: relative; z-index: 1;">
         <div class="a"></div>
@@ -771,7 +721,7 @@
       }
 
       // Hide loader after 3 seconds or when page is fully loaded
-      setTimeout(hideLoader, 3000);
+      setTimeout(hideLoader, 2400); /* 3000ms * 0.8 */
       $(window).on("load", function() {
         console.log("Window loaded, hiding loader");
         hideLoader();
@@ -831,7 +781,7 @@
       // Initial subtitle animation
       setTimeout(() => {
         $('.subtitle').css('opacity', 1).addClass('slideIn');
-      }, 500);
+      }, 400); /* 500ms * 0.8 */
 
       // Slider functionality
       const initialValue = 2550;
@@ -865,13 +815,13 @@
         if (!isInitial) {
           $("#amount").css({ opacity: 1, transform: "translateY(0)" });
           $("#budget-message").css({ opacity: 1, transform: "translateY(0)" });
-          $("#slide-it").css({ opacity: 0, transform: "translateY(20px)" });
+          $("#slide-it").css({ opacity: 0, transform: "translateY(16px)" }); /* 20px * 0.8 */
           $("#go-button").css({ opacity: 1, transform: "translateY(0)" });
         } else {
-          $("#amount").css({ opacity: 0, transform: "translateY(20px)" });
-          $("#budget-message").css({ opacity: 0, transform: "translateY(20px)" });
+          $("#amount").css({ opacity: 0, transform: "translateY(16px)" }); /* 20px * 0.8 */
+          $("#budget-message").css({ opacity: 0, transform: "translateY(16px)" });
           $("#slide-it").css({ opacity: 1, transform: "translateY(0)" });
-          $("#go-button").css({ opacity: 0, transform: "translateY(20px)" });
+          $("#go-button").css({ opacity: 0, transform: "translateY(16px)" });
         }
 
         $(".a, .b, .c, .d").css("width", (val / 5000 * 100) + "%");
